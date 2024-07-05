@@ -16,8 +16,12 @@ public class Messages_Async {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "user_sender_id")
+	private User userSender;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_receiver_id")
+	private User userReceiver;
 
 	@NotBlank(message = "Le contenu du message est obligatoire")
 	@NotNull
@@ -39,13 +43,6 @@ public class Messages_Async {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public String getMessage() {
 		return message;
@@ -69,6 +66,22 @@ public class Messages_Async {
 
 	public void setStatut(String statut) {
 		this.statut = statut;
+	}
+
+	public User getUserSender() {
+		return userSender;
+	}
+
+	public void setUserSender(User userSender) {
+		this.userSender = userSender;
+	}
+
+	public User getUserReceiver() {
+		return userReceiver;
+	}
+
+	public void setUserReceiver(User userReceiver) {
+		this.userReceiver = userReceiver;
 	}
 
 }

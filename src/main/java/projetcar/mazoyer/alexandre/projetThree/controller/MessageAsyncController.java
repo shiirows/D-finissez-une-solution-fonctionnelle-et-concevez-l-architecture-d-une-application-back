@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import projetcar.mazoyer.alexandre.projetThree.request.MessageRequest;
+import projetcar.mazoyer.alexandre.projetThree.request.MessageAsyncRequest;
 import projetcar.mazoyer.alexandre.projetThree.response.MessageResponse;
 import projetcar.mazoyer.alexandre.projetThree.security.WebSecurityConfig;
 import projetcar.mazoyer.alexandre.projetThree.service.MessageService;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/messages")
-public class MessageController {
+public class MessageAsyncController {
 
 	@Autowired
 	WebSecurityConfig config;
@@ -25,11 +25,11 @@ public class MessageController {
 	MessageService messageService;
 
 	@PostMapping("")
-	public ResponseEntity<?> createMessage(@RequestBody MessageRequest messageRequest) {
+	public ResponseEntity<?> createMessage(@RequestBody MessageAsyncRequest messageAsyncRequest) {
 
 		try {
 			 config.authentification();
-			return new ResponseEntity<>(messageService.createMessage(messageRequest), HttpStatus.OK);
+			return new ResponseEntity<>(messageService.createMessage(messageAsyncRequest), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(new MessageResponse("you are not connected"),HttpStatus.CONFLICT);
 		}
