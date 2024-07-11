@@ -49,10 +49,7 @@ public class AuthService {
 		user.setCountry(signupRequest.getCountry());
 		user.setCountryCode(signupRequest.getCountryCode());
 		user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
-		System.out.println(user.getAdress() +" " + user.getCountry() + " " + user.getCountryCode() +" " + user.getPassword());
-		
 		userRepository.save(user);
-		System.out.println("test2");
 	    SigninRequest signinRequest = new SigninRequest();
 
 		signinRequest.setEmail(signupRequest.getEmail());
