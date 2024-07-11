@@ -23,33 +23,30 @@ public class User {
 	private Long id;
 
 	@NotBlank(message = "Le mail est obligatoire")
-	@Size(max = 100)
+	@Size(max = 150)
 	@Email
 	@NotNull
 	private String email;
 
 	@NotBlank(message = "Le nom d'utilisateur est obligatoire")
-	@Size(max = 20)
+	@Size(max = 50)
 	@NotNull
 	private String name;
 	
 	@NotBlank(message = "Le nom d'utilisateur est obligatoire")
-	@Size(max = 20)
+	@Size(max = 50)
 	@NotNull
 	private String firstName;
 	
 	@NotBlank(message = "Le mot de passe est obligatoire")
-	@Size(max = 120)
+	@Size(max = 220)
 	@NotNull
 	private String password;
 	
-	@NotBlank(message = "La date de naissance est obligatoire")
-	@Size(max = 20)
-	@NotNull
 	private Date dateOfBirth;
 	
 	@NotBlank(message = "l'adresse est obligatoire")
-	@Size(max = 50)
+	@Size(max = 100)
 	@NotNull
 	private String adress;
 	
@@ -103,6 +100,38 @@ public class User {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 }

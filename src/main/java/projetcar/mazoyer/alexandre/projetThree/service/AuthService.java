@@ -40,14 +40,20 @@ public class AuthService {
 
 	public ResponseEntity<?> register(SignupRequest signupRequest) throws Exception {
 
-		Date date = new Date();
 		User user = new User();
 		user.setEmail(signupRequest.getEmail());
 		user.setName(signupRequest.getName());
+		user.setFirstName(signupRequest.getFirstName());
+		user.setDateOfBirth(signupRequest.getDateOfBirth());
+		user.setAdress(signupRequest.getAdress());
+		user.setCountry(signupRequest.getCountry());
+		user.setCountryCode(signupRequest.getCountryCode());
 		user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+		System.out.println(user.getAdress() +" " + user.getCountry() + " " + user.getCountryCode() +" " + user.getPassword());
+		
 		userRepository.save(user);
-
-		SigninRequest signinRequest = new SigninRequest();
+		System.out.println("test2");
+	    SigninRequest signinRequest = new SigninRequest();
 
 		signinRequest.setEmail(signupRequest.getEmail());
 		signinRequest.setPassword(signupRequest.getPassword());
