@@ -27,7 +27,6 @@ import projetcar.mazoyer.alexandre.projetThree.repository.UserRepository;
 import projetcar.mazoyer.alexandre.projetThree.userdetails.UserDetailsImpl;
 import projetcar.mazoyer.alexandre.projetThree.userdetails.UserDetailsServiceImpl;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -49,14 +48,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public CorsFilter corsFilter() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList(host));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.addAllowedHeader("*");
+		configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 
 		return new CorsFilter(source);
 	}
+
+
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -78,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/").permitAll();
+				.antMatchers("/","/chat/**" ).permitAll();
 
 		/* on autorise tout type de requete sans étres authantifier */
 

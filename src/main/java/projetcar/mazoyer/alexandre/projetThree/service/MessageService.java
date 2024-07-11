@@ -22,14 +22,15 @@ public class MessageService {
 	@Autowired
 	MessageAsyncRepository messageAsyncRepository;
 
-	public ResponseEntity<MessageResponse> createMessage(MessageAsyncRequest messageAsyncRequest) {
+	public ResponseEntity<MessageResponse> createMessage(MessageAsyncRequest messageAsyncRequest, User userSender) {
 
-		User user = userRepository.getById(messageAsyncRequest.getUser_id());
+		User userReceiver = userRepository.getById(messageAsyncRequest.getUser_receiver_id());
 		Messages_Async messages_Async = new Messages_Async();
 		Date date = new Date();
 
 		messages_Async.setMessage(messageAsyncRequest.getMessage());
-		messages_Async.setUser(user);
+		messages_Async.setUserReceiver(userReceiver);
+		messages_Async.setUserSender(userSender);
 		messages_Async.setCreatedAt(date);
 
 		messageAsyncRepository.save(messages_Async);

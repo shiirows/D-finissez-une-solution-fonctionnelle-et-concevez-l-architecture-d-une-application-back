@@ -28,8 +28,7 @@ public class MessageAsyncController {
 	public ResponseEntity<?> createMessage(@RequestBody MessageAsyncRequest messageAsyncRequest) {
 
 		try {
-			 config.authentification();
-			return new ResponseEntity<>(messageService.createMessage(messageAsyncRequest), HttpStatus.OK);
+			return new ResponseEntity<>(messageService.createMessage(messageAsyncRequest, config.authentification()), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(new MessageResponse("you are not connected"),HttpStatus.CONFLICT);
 		}
