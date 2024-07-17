@@ -17,7 +17,6 @@ import projetcar.mazoyer.alexandre.projetThree.response.MessageResponse;
 import projetcar.mazoyer.alexandre.projetThree.security.WebSecurityConfig;
 import projetcar.mazoyer.alexandre.projetThree.service.AuthService;
 
-
 @RestController
 @CrossOrigin
 @RequestMapping("/api/auth")
