@@ -1,6 +1,7 @@
 package projetcar.mazoyer.alexandre.projetThree.service;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 import projetcar.mazoyer.alexandre.projetThree.DTO.UserInfoDto;
 import projetcar.mazoyer.alexandre.projetThree.convert.UserInfoConvert;
 import projetcar.mazoyer.alexandre.projetThree.jwt.JwtUtils;
+import projetcar.mazoyer.alexandre.projetThree.models.ERoles;
+import projetcar.mazoyer.alexandre.projetThree.models.Role;
 import projetcar.mazoyer.alexandre.projetThree.models.User;
+import projetcar.mazoyer.alexandre.projetThree.repository.RoleRepository;
 import projetcar.mazoyer.alexandre.projetThree.repository.UserRepository;
 import projetcar.mazoyer.alexandre.projetThree.request.SigninRequest;
 import projetcar.mazoyer.alexandre.projetThree.request.SignupRequest;
@@ -38,9 +42,16 @@ public class AuthService {
 	@Autowired
 	UserInfoConvert convert;
 
+	@Autowired
+	RoleRepository roleRepository;
+
 	public ResponseEntity<?> register(SignupRequest signupRequest) throws Exception {
 
+		Set<Role> roles = new HashSet<Role>();
+
 		User user = new User();
+
+		user.setRoles(roles);
 		user.setEmail(signupRequest.getEmail());
 		user.setName(signupRequest.getName());
 		user.setFirstName(signupRequest.getFirstName());
@@ -49,8 +60,16 @@ public class AuthService {
 		user.setCountry(signupRequest.getCountry());
 		user.setCountryCode(signupRequest.getCountryCode());
 		user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+		
+		Role role = roleRepository.findByName(ERoles.ROLE_USER)
+				.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+		roles.add(role);
+		
+		user.setRoles(roles);
+		
 		userRepository.save(user);
-	    SigninRequest signinRequest = new SigninRequest();
+
+		SigninRequest signinRequest = new SigninRequest();
 
 		signinRequest.setEmail(signupRequest.getEmail());
 		signinRequest.setPassword(signupRequest.getPassword());

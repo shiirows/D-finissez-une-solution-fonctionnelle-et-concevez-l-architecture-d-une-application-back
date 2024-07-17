@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import projetcar.mazoyer.alexandre.projetThree.models.Role;
 import projetcar.mazoyer.alexandre.projetThree.models.User;
 
 @SuppressWarnings("serial")
@@ -33,6 +34,10 @@ public class UserDetailsImpl implements UserDetails {
 		userDetailsImpl.setEmail(user.getEmail());
 
 		Set<SimpleGrantedAuthority> authoritys = new HashSet<SimpleGrantedAuthority>();
+
+		for (Role role : user.getRoles()) {
+			authoritys.add(new SimpleGrantedAuthority(role.getName().name()));
+		}
 
 		userDetailsImpl.setGrantedAuthority(authoritys);
 
