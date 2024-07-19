@@ -31,9 +31,8 @@ public class Messages_Async {
 	private Date createdAt;
 
 	@NotBlank(message = "Le statut est obligatoire")
-	@Size(max = 20)
 	@NotNull
-	private String statut;
+	private boolean statut;
 
 	public Long getId() {
 		return id;
@@ -60,13 +59,6 @@ public class Messages_Async {
 		this.createdAt = createdAt;
 	}
 
-	public String getStatut() {
-		return statut;
-	}
-
-	public void setStatut(String statut) {
-		this.statut = statut;
-	}
 
 	public User getUserSender() {
 		return userSender;
@@ -82,6 +74,14 @@ public class Messages_Async {
 
 	public void setUserReceiver(User userReceiver) {
 		this.userReceiver = userReceiver;
+	}
+
+	public boolean isStatut() {
+		return statut;
+	}
+
+	public void setStatut(boolean statut) {
+		this.statut = statut;
 	}
 
 }
